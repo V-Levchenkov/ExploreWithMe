@@ -47,12 +47,12 @@ API основного сервиса разделите на три части.
 2) Statistics - хранит количество просмотров и позволяет получить эту информацию
 
 Server схема
-![alt text](https://github.com/V-Levchenkov/java-explore-with-me/ServerDiagram.png)
-![Diagram](/ServerDiagram.png)
+
+![Diagram](/ServerDiagram.PNG)
 
 Statistics схема
 
-![Diagram](/StatisticsDiagram.png)
+![Diagram](/StatisticsDiagram.PNG)
 
 Server имеет три уровня доступа:
 1) Публичный доступ (Public)

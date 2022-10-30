@@ -1,6 +1,6 @@
 # java-explore-with-me
 ExploreWithMe project
-[PULL REQUEST]([http://sabaka.net](https://github.com/V-Levchenkov/java-explore-with-me/pull/1))
+[PULL REQUEST](https://github.com/V-Levchenkov/java-explore-with-me/pull/1))
 
 # Идея: 
 Свободное время — ценный ресурс. Ежедневно мы планируем, как его потратить — куда и с кем сходить.

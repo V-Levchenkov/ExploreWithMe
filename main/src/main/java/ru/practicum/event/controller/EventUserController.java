@@ -23,9 +23,6 @@ public class EventUserController {
     private final EventService eventService;
     private final EventClient eventClient;
 
-
-    @RequestMapping("/users/{userId}/events")
-
     @PostMapping("/users/{userId}/events")
     public FullEventDto add(@PathVariable Long userId, @Valid @RequestBody NewEventDto eventDto) {
         return eventService.addPrivate(userId, eventDto);

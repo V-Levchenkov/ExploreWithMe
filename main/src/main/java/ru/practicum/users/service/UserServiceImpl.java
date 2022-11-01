@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.exceptions.NotFoundException;
-import ru.practicum.exceptions.ValidationException;
 import ru.practicum.users.dto.UserFullDto;
 import ru.practicum.users.dto.UserMapper;
 import ru.practicum.users.model.User;
@@ -15,7 +14,6 @@ import ru.practicum.utilits.PageableRequest;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -27,7 +25,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserFullDto addUser(UserFullDto userDto) {
-        checkEmail(userDto.getEmail());
         User user = userRepository.save(userMapper.fromDtoToUser(userDto));
         log.info("Добавлен пользователь {}", user);
         return userMapper.toUserFullDtoList(user);
@@ -36,11 +33,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserFullDto> getAllUsersList(Long[] ids, Integer from, Integer size) {
         List<User> users;
-        if (ids == null) {
-            users = userRepository.findAll(getPageable(from, size)).getContent();
-        } else {
-            users = userRepository.findAllById(Arrays.asList(ids));
-        }
+        users = (ids == null) ? userRepository.findAll(getPageable(from, size)).getContent()
+                : userRepository.findAllById(Arrays.asList(ids));
         log.info("Получен список пользователей {}", users);
         return userMapper.toUserFullDtoList(users);
     }
@@ -58,17 +52,8 @@ public class UserServiceImpl implements UserService {
     }
 
     private User userValidation(Long userId) {
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isEmpty()) {
-            throw new NotFoundException("Пользователь с id: {} не найден", userId);
-        }
-        return user.get();
-    }
-
-    private void checkEmail(String email) {
-        if (email == null || email.isEmpty() || email.isBlank()) {
-            throw new ValidationException("Почта не может быть пустой");
-        }
+        return userRepository.findById(userId).orElseThrow(() ->
+         new NotFoundException("Пользователь с id: {} не найден", userId));
     }
 
     private Pageable getPageable(Integer from, Integer size) {

@@ -2,13 +2,11 @@ package ru.practicum.storage;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 import ru.practicum.model.EndpointHit;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Repository
 public interface EndpointHitRepository extends JpaRepository<EndpointHit, Long> {
 
     String query = "SELECT DISTINCT ON(ip) * FROM endpoint_hit  WHERE timestamp BETWEEN ?1 AND ?2 ";

@@ -3,6 +3,8 @@ package ru.practicum.users.dto;
 import lombok.*;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -13,5 +15,7 @@ public class UserFullDto {
     private String name;
 
     @Email
+    @NotNull
+    @NotBlank
     private String email;
 }

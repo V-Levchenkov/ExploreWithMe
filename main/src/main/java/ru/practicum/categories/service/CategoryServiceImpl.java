@@ -13,7 +13,6 @@ import ru.practicum.exceptions.NotFoundException;
 import ru.practicum.utilits.PageableRequest;
 
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Slf4j
@@ -60,11 +59,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private Category categoryValidate(Long categoryId) {
-        Optional<Category> category = categoryRepository.findById(categoryId);
-        if (category.isEmpty()) {
-            throw new NotFoundException("Категория с id: {} не найдена", categoryId);
-        }
-        return category.get();
+        return categoryRepository.findById(categoryId).orElseThrow(() ->
+                new NotFoundException("Категория с id: {} не найдена", categoryId));
     }
 
     private Pageable getPageable(Integer from, Integer size) {

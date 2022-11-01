@@ -4,6 +4,7 @@ import lombok.*;
 import ru.practicum.event.model.Event;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -25,6 +26,8 @@ public class Compilation {
     private List<Event> events;
 
     private boolean pinned;
+    @NotNull
+    @Column(name = "title", nullable = false, length = 120)
     private String title;
 
 

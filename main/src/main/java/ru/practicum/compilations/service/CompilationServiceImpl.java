@@ -16,7 +16,6 @@ import ru.practicum.exceptions.NotFoundException;
 import ru.practicum.utilits.PageableRequest;
 
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -85,11 +84,8 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     private Compilation checkCompilation(Long compilationId) {
-        Optional<Compilation> category = compilationRepository.findById(compilationId);
-        if (category.isEmpty()) {
-            throw new NotFoundException("Подборка с id: {} не найдена", compilationId);
-        }
-        return category.get();
+        return compilationRepository.findById(compilationId).orElseThrow(() ->
+                new NotFoundException("Подборка с id: {} не найдена", compilationId));
     }
 
     private Pageable getPageable(Integer from, Integer size, Sort sort) {

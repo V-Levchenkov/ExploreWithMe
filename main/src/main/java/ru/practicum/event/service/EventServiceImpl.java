@@ -62,12 +62,8 @@ public class EventServiceImpl implements EventService {
     public FullEventDto updateByAdmin(Long eventId, NewEventDto eventDto) {
         Event event = eventValidation(eventId);
         eventDtoValidation(eventDto, event);
-        if (eventDto.getLocation() != null) {
-            event.setLocation(eventDto.getLocation());
-        }
-        if (eventDto.getRequestModeration() != null) {
-            event.setRequestModeration(eventDto.getRequestModeration());
-        }
+        Optional.ofNullable(eventDto.getLocation()).ifPresent(event::setLocation);
+        Optional.ofNullable(eventDto.getRequestModeration()).ifPresent(event::setRequestModeration);
         repository.save(event);
         log.info("Обновлено событие c id {}", eventId);
         return eventMapper.toDto(event);
@@ -77,7 +73,7 @@ public class EventServiceImpl implements EventService {
     public FullEventDto publishEventAdmin(Long eventId) {
         Event event = eventValidation(eventId);
         if (event.getEventDate().plusHours(1).isAfter(LocalDateTime.now()) &&
-                event.getState().equals(State.PENDING)) {
+                event.getState() == State.PENDING) {
             event.setPublishedOn(LocalDateTime.now());
             event.setState(State.PUBLISHED);
             repository.save(event);
@@ -89,7 +85,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public FullEventDto rejectEventAdmin(Long eventId) {
         Event event = eventValidation(eventId);
-        if (event.getState().equals(State.PENDING)) {
+        if (event.getState() == State.PENDING) {
             event.setState(State.CANCELED);
             repository.save(event);
             log.info("Администратором отклонено событие c id: {}", eventId);
@@ -111,11 +107,11 @@ public class EventServiceImpl implements EventService {
         if (!userId.equals(event.getInitiator().getId())) {
             throw new ValidationException("Редактировать событие может только его инициатор");
         }
-        if (event.getState().equals(State.PUBLISHED)) {
+        if (event.getState() == State.PUBLISHED) {
             throw new ValidationException("Редактировать можно только отмененные события " +
                     "или события в состоянии ожидания модерации");
         }
-        if (event.getState().equals(State.CANCELED)) {
+        if (event.getState() == State.CANCELED) {
             event.setState(State.PENDING);
         }
         repository.save(event);
@@ -194,7 +190,7 @@ public class EventServiceImpl implements EventService {
     public RequestDto rejectRequestPrivate(Long userId, Long eventId, Long requestId) {
         eventValidation(eventId);
         Request request = requestService.getByRequestId(requestId);
-        if (request.getStatus().equals(Status.REJECTED) || request.getStatus().equals(Status.CANCELED)) {
+        if (request.getStatus() == Status.REJECTED || request.getStatus() == Status.CANCELED) {
             throw new ValidationException("Заявка уже отменена или отклонена");
         }
         request.setStatus(Status.REJECTED);
@@ -257,11 +253,8 @@ public class EventServiceImpl implements EventService {
     }
 
     private Event eventValidation(Long eventId) {
-        Optional<Event> category = repository.findById(eventId);
-        if (category.isEmpty()) {
-            throw new NotFoundException("Событие с id: {} не найдено", eventId);
-        }
-        return category.get();
+        return repository.findById(eventId).orElseThrow(() ->
+                new NotFoundException("Событие с id: {} не найдено", eventId));
     }
 
     private void eventDateValidation(String eventDate) {

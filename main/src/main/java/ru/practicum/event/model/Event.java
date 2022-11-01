@@ -5,6 +5,7 @@ import ru.practicum.categories.model.Category;
 import ru.practicum.users.model.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
@@ -19,6 +20,8 @@ public class Event {
     @Column(name = "event_id")
     private Long id;
 
+    @NonNull
+    @Column(name = "annotation", nullable = false, length = 2000)
     private String annotation;
 
     @ManyToOne(cascade = CascadeType.MERGE)
@@ -31,6 +34,8 @@ public class Event {
     @Column(name = "create_date")
     private LocalDateTime createdOn;
 
+    @NonNull
+    @Column(name = "description", length = 7000)
     private String description;
 
     @Column(name = "event_date")
@@ -59,6 +64,8 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private State state;
 
+    @NonNull
+    @Column(name = "title", nullable = false, length = 120)
     private String title;
     private int views;
 

@@ -106,10 +106,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     private Request requestValidator(Long requestId) {
-        Optional<Request> request = requestRepository.findById(requestId);
-        if (request.isEmpty()) {
-            throw new NotFoundException("Заявка с id: {} не найдена", requestId);
-        }
-        return request.get();
+        return requestRepository.findById(requestId).orElseThrow(() ->
+                new NotFoundException("Заявка с id: {} не найдена", requestId));
     }
 }

@@ -3,10 +3,10 @@ package ru.practicum.users.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -20,11 +20,11 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @NonNull
+    @NotNull
     @Column(name = "name", nullable = false, length = 70)
     private String name;
     @Email
-    @NonNull
+    @NotNull
     @Column(name = "email", nullable = false, length = 50)
     private String email;
 }

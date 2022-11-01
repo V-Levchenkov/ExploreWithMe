@@ -9,16 +9,15 @@ import ru.practicum.event.model.State;
 import ru.practicum.event.service.EventService;
 import ru.practicum.exceptions.NotFoundException;
 import ru.practicum.exceptions.ValidationException;
-import ru.practicum.requests.dto.RequestMapper;
-import ru.practicum.requests.model.Status;
 import ru.practicum.requests.dto.RequestDto;
+import ru.practicum.requests.dto.RequestMapper;
 import ru.practicum.requests.model.Request;
+import ru.practicum.requests.model.Status;
 import ru.practicum.requests.storage.RequestRepository;
 import ru.practicum.users.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 
 @AllArgsConstructor(onConstructor_ = {@Lazy})

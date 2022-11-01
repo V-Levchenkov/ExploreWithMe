@@ -1,11 +1,13 @@
 package ru.practicum.event.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import ru.practicum.categories.model.Category;
 import ru.practicum.users.model.User;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data

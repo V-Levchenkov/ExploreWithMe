@@ -10,7 +10,6 @@ import ru.practicum.comments.service.CommentService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

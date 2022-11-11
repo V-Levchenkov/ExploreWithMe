@@ -136,7 +136,7 @@ public class EventServiceImpl implements EventService {
         if (event == null) {
             throw new NotFoundException("Событие id: {} не найдено", eventId);
         }
-        log.info("Получено событие c id: {}", eventId);
+        log.info("Получено событие: {} ", event);
         return eventMapper.toDto(event);
     }
 

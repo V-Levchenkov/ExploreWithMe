@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentDtoForUpdate {
+public class CommentShortDto {
     String text;
 }

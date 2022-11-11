@@ -12,12 +12,12 @@ public class NewEventDto {
 
     private Long eventId;
 
-    @Size(max = 2000, min = 20)
+    @Size(max = 2000, min = 10)
     private String annotation;
 
     private Long category;
 
-    @Size(max = 7000, min = 20)
+    @Size(max = 7000, min = 10)
     private String description;
 
     private String eventDate;

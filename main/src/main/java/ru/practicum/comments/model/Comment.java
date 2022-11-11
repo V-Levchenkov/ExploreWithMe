@@ -1,6 +1,7 @@
 package ru.practicum.comments.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.event.model.Event;
@@ -9,10 +10,11 @@ import ru.practicum.users.model.User;
 import javax.persistence.*;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "comments")
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

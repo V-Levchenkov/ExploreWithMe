@@ -75,12 +75,12 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.toDto(commentRepository.save(comment));
     }
 
-    public Comment commentValidation(Long commentId) {
+    private Comment commentValidation(Long commentId) {
         return commentRepository.findById(commentId).orElseThrow(() ->
                 new NotFoundException("Комментарий с id: {} не найден", commentId));
     }
 
-    public Comment commentWithUserValidation(Long commentId, Long userId) {
+    private Comment commentWithUserValidation(Long commentId, Long userId) {
         Comment comment = commentValidation(commentId);
         if (!comment.getUser().getId().equals(userId)) {
             throw new WrongOwnerException("Пользователь с id: {} не является владельцем комментария с id: {}",

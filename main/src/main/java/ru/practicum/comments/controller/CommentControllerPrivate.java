@@ -14,7 +14,6 @@ import javax.validation.constraints.Positive;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("")
 public class CommentControllerPrivate {
     private final CommentService commentService;
 

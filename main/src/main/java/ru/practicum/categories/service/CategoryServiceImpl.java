@@ -25,14 +25,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryDto> getAllCategoryList(Integer from, Integer size) {
         List<Category> categories = categoryRepository.findAll(getPageable(from, size)).getContent();
-        log.info("Получен список всех категорий категорий");
+        log.info("Получен список всех категорий : {}", categories);
         return categoryMapper.toCategoryDto(categories);
     }
 
     @Override
     public CategoryDto getCategoryById(Long categoryId) {
         Category category = categoryValidate(categoryId);
-        log.info("Получена категория с id: {}", categoryId);
         return categoryMapper.toCategoryDto(category);
     }
 

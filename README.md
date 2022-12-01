@@ -1,4 +1,4 @@
-# java-explore-with-me
+# ExploreWithMe
 ExploreWithMe project
 [PULL REQUEST](https://github.com/V-Levchenkov/java-explore-with-me/pull/1)
 
